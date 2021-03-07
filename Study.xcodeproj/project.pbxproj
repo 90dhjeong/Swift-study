@@ -13,6 +13,7 @@
 		53CE948425F4D0C400415405 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53CE948325F4D0C400415405 /* Preview Assets.xcassets */; };
 		53CE948F25F4D0C400415405 /* StudyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE948E25F4D0C400415405 /* StudyTests.swift */; };
 		53CE949A25F4D0C400415405 /* StudyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE949925F4D0C400415405 /* StudyUITests.swift */; };
+		53CE94AB25F4D0F500415405 /* StudyGuardOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE94AA25F4D0F500415405 /* StudyGuardOptional.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		53CE949525F4D0C400415405 /* StudyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53CE949925F4D0C400415405 /* StudyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyUITests.swift; sourceTree = "<group>"; };
 		53CE949B25F4D0C400415405 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53CE94AA25F4D0F500415405 /* StudyGuardOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGuardOptional.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				53CE948025F4D0C400415405 /* Assets.xcassets */,
 				53CE948525F4D0C400415405 /* Info.plist */,
 				53CE948225F4D0C400415405 /* Preview Content */,
+				53CE94AA25F4D0F500415405 /* StudyGuardOptional.swift */,
 			);
 			path = Study;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53CE94AB25F4D0F500415405 /* StudyGuardOptional.swift in Sources */,
 				53CE947F25F4D0C300415405 /* ContentView.swift in Sources */,
 				53CE947D25F4D0C300415405 /* StudyApp.swift in Sources */,
 			);
