@@ -148,9 +148,12 @@ func associatedValues() {
         print("dvi 2048 x Any")
     case .dvi:
         print("dvi")
+    case let .hdmi(hdmi):
+        
+        print("가능한가?")
     case .hdmi(let width, let height, let version, var audioEnabled):
         print("hdmi \(width)x\(height)")
-    case let .displayPort(size): // 모든 연관값을 동일한 형태로 바인딩 -> EnumerationCasePattern
+    case let .displayPort(size): // 모든 연관값을 동일한 형태로 바인딩 - EnumerationCasePattern
         print("dp")
     }
     
