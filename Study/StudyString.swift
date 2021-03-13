@@ -304,3 +304,289 @@ func subString() {
     let s4 = str[lower ... upper]
     // s는 subString
 }
+
+func stringEditing1() {
+    // 문자열 추가, 사이에 넣기
+    var str = "Hello"
+    str.append(", ")
+    
+    let s = str.appending("Swift")
+    print(str) // append - 대상 문자열을 직접 변경
+    print(s) // appending - 원본을 변경하지 않고 새로운 값을 리턴함
+    
+    "File size is ".appendingFormat("%.1f", 12.3456) // 새로운 문자열 리턴
+    
+    var str2 = "Hello Swift"
+    str2.insert(",", at: str.index(str.startIndex, offsetBy: 5))
+    
+    if let sIndex = str2.firstIndex(of: "S") {
+        str2.insert(contentsOf: "Awesome", at: sIndex)
+    }
+}
+   
+func stringEditing2() {
+    // 교체, 삭제
+    // 문자열 비교는 기본적으로 대소문자를 구별한다
+    var str = "Hello, Obejctive-C"
+    if let range = str.range(of: "Objective-C") {
+        str.replaceSubrange(range, with: "Swift")
+    }
+    
+    if let range = str.range(of: "Hello") {
+        let s = str.replacingCharacters(in: range, with: "Hi")
+    } // 원본변경 X
+   
+    var s = str.replacingOccurrences(of: "Swift", with: "Awesome Swift")
+    // 새로운 문자열 리턴
+    s = str.replacingOccurrences(of: "swift", with: "Awesome Swift")
+    // 대소문자를 구분하므로 원본문자열을 리턴함
+    
+    s = str.replacingOccurrences(of: "swift", with: "Awesome Swift", options: .caseInsensitive)
+    // 대소문자 구분 없이 진행
+    
+    //Removing SubString
+    var str2 = "Hello, Awesom Swift!!!"
+    let lastCharIndex = str2.index(before: str.endIndex)
+    var removed = str2.remove(at: lastCharIndex) // 원본 삭제, Character를 리턴함, 잘못된 인덱스는 에러 발생
+    
+    removed = str2.removeFirst() // 삭제된 문자를 리턴함, 원본 삭제
+    str2.removeFirst(2) // 2개의 문자를 삭제함, 리턴해주진 않음
+    
+    str2.removeLast()
+    str2.removeLast(2)
+    
+    if let range = str.range(of: "Awesome") {
+        str2.removeSubrange(range) // 범위 삭제시 사용
+    }
+    
+    str.removeAll() // 메모리공간도 함께 삭제함
+    str2.removeAll(keepingCapacity: true) // 메모리 공간은 유지함
+    
+    str2 = "Hello, Awesom Swift!!!"
+    var substr = str.dropLast() // 원본 문자열과 메모리를 공유함, 마지막!을 삭제한 뒤 새로운 문자열을 리턴함
+    substr = str2.dropLast(3) // 3개를 제외한 나머지 문자열과 메모리를 공유함
+    
+    substr.drop(while: { (ch) -> Bool in
+        return ch != ","
+    }) // true가 리턴되는 동안 삭제, false리턴 시 종료하고 남은 문자열을 리턴함
+    print(substr) // ",Awusome Swift!!!"
+}
+
+func stringComparison() {
+    // 문자열 비교
+    let largeA = "Apple"
+    let smallA = "apple"
+    let b  = "Banana"
+    
+    largeA == smallA // false
+    largeA != smallA // true
+    
+    // 문자열에 할당된 코드의 크기 비교
+    largeA < smallA // true, ascii code
+    largeA < b // true
+    smallA < b // false
+    
+    // 메소드로 비교
+    largeA.compare(smallA) // NSComparisonResult가 반환
+    largeA.compare(smallA) == .orderedSame // 같은지 비교할 때(대소문자 구분) - false
+   
+    largeA.caseInsensitiveCompare(smallA) == .orderedSame // 같은지 비교할 때(대소문자 구분 없이) - true
+    largeA.compare(smallA, options: [.caseInsensitive]) == .orderedSame // 위와 같음. 문자열 옵션을 지정할 때 사용
+
+    let str = "Hello, Swift Programming!"
+    let prefix = "Hello"
+    let suffix = "Programming"
+    
+    str.hasPrefix(prefix) // true
+    str.hasSuffix(suffix) // false
+    
+    str.lowercased().hasPrefix(prefix.lowercased()) // 대소문자 구별 없이 접두어 비교
+}
+
+func stringSearching() {
+    // 단어 검색
+    let str = "Hello, Swift"
+    str.contains("Swift") // 포함여부를 Bool로 반환
+    str.contains("swift") // false
+    str.lowercased().contains("swift") // true
+    
+    // 범위 검색
+    if let range = str.range(of: "Swift") {
+        
+    }
+    str.range(of: "swift", options: [.caseInsensitive])
+    
+    let str2 = "Hello, Programming"
+    let str3 = str2.lowercased() // 별도의 메모리, subString이 아님.
+    
+    var common = str.commonPrefix(with: str2) // 공통 접두어만 새로운 문자열로 리턴
+    common = str.commonPrefix(with: str3)
+    common = str.commonPrefix(with: str3, options: .caseInsensitive)
+}
+
+func stringOptions1() {
+    // 9가지의 문자열 옵션 제공
+    
+    //Case Insensitive Option
+    "A" == "a" // false
+    "A".caseInsensitiveCompare("a") == .orderedSame
+    "A".compare("a", options: .caseInsensitive) == .orderedSame
+    
+    //Literal Option
+    let a = "\u{D55C}" // 완성형 한
+    let b = "\u{1112}\u{1161}\u{11AB}" // 조합형 한
+    
+    a == b //  true
+    a.compare(b) == .orderedSame // true, 유닛을 합친 후 최종 문자가 같기 때문
+    a.compare(b, options: [.literal]) == .orderedSame // 이 옵션을 사용하는게 빠름, 코드유닛을 비교함
+    
+    //Backward Option - 문자 읽는 방향 leading -> Trailng
+    let korean = "행복하세요"
+    let english = "Be happy"
+    let arabic = "어랍아"
+    
+    if let range = english.range(of: "p") {
+        english.distance(from: english.startIndex, to: range.lowerBound) // 5
+    }
+    
+    if let range = english.range(of: "p", options: .backwards) {
+        english.distance(from: english.startIndex, to: range.lowerBound) // 6 (y앞의 p)
+    }
+    
+    //Anchored Option - 검색 범위 지정
+    let str = "Swift Programming"
+    if let result = str.range(of: "Swift") {
+        print(str.distance(from: str.startIndex, to: result.lowerBound))
+    } else {
+        print("not found")
+    } // 0
+    
+    if let result = str.range(of: "Swift", options: .backwards) {
+        print(str.distance(from: str.startIndex, to: result.lowerBound))
+    } else {
+        print("not found")
+    } // 0
+    
+    if let result = str.range(of: "Swift", options: .anchored) {
+        print(str.distance(from: str.startIndex, to: result.lowerBound))
+    } else {
+        print("not found")
+    } // 0
+    
+    if let result = str.range(of: "Swift", options: [.anchored, .backwards]) {
+        print(str.distance(from: str.startIndex, to: result.lowerBound))
+    } else {
+        print("not found")
+    } // not found - 진행방향에서 안 보였기 때문
+    
+    str.hasPrefix("swift")
+    str.lowercased().hasPrefix("swift")
+    if let _ = str.range(of: "swift", options: [.anchored, .caseInsensitive]) {
+        print("same prefix")
+    } // same prefix
+    
+    str.hasSuffix("swift")
+    if let _ = str.range(of: "swift", options: [.anchored, .backwards,.caseInsensitive]) {
+        print("same prefix")
+    } // same prefix
+    
+}
+
+func stringOptions2() {
+    //Numeric Option - 문자에 포함된 숫자를 숫자 자체로 처리함
+    "A" < "B" // true
+    "a" < "B" // false - 문자에 할당되어있는 코드(아스키)의 크기 비교
+    
+    let file9 = "file9.txt"
+    let file10 = "file10.txt"
+    
+    file9 < file10 // false
+    file9.compare(file10) == .orderedAscending // false
+    file9.compare(file10, options: .numeric) // ture
+    
+    // Diacritic Insensitive Option - 발음기호 무시
+    let a = "Cafe"
+    let b = "Cafè"
+    
+    a == b // false
+    a.compare(b) == .orderedSame // 실제 모양이 다르므로 false
+    a.compare(b, options: .diacriticInsensitive) == .orderedSame // ture
+    
+    // Width insensitive Option - 전각, 반각문자 무시
+    let x = "\u{30A1}"
+    let y = "\u{ff67}"
+    
+    x == y // false
+    x.compare(y) == .orderedSame // false
+    a.compare(b, options: .widthInsensitive) == .orderedSame // true
+    
+    // Forced Ordering Option - 전체 옵션 적용시 같은 문자열이라면 순서를 판단하기 위해 일부 옵션을 무시하고 정렬함
+    let upper = "STRING"
+    let lower = "string"
+    
+    upper == lower
+    upper.compare(lower, options: [.caseInsensitive]) == .orderedSame // true
+    upper.compare(lower, options: [.caseInsensitive, .forcedOrdering]) == .orderedSame // false
+    
+
+    // Regular Expression Option - 정규식 옵션
+    let emailPattern = "([0-9a-zA-z_-]+)@([0-9a-zA-z_-]+){\\.[0-9a-zA-z_-]+)(1,2}"
+    let emailAddress = "user@example.com"
+    
+    if let _ = emailAddress.range(of: emailPattern) {
+        print("found")
+    } else {
+        print("not found")
+    } // 바인딩 실패, 문자열 자체 비교
+    
+    if let _ = emailAddress.range(of: emailPattern, options: .regularExpression) {
+        print("found")
+    } else {
+        print("not found")
+    } // found, 올바른 범위를 리턴하지만 올바른 이메일이라고 할 수는 없음
+    // 패턴이 존재한다면 그냥 리턴함. 이 경우 다시 한 번 확인
+    
+    if let range = emailAddress.range(of: emailPattern, options: .regularExpression), (range.lowerBound, range.upperBound) == (emailAddress.startIndex, emailAddress.endIndex) {
+        print("found")
+    } else {
+        print("not found")
+    } // 범위가 일치하는지 튜플로 저장한 후 크기를 비교함
+}
+
+func characterSet() {
+    // 문자 집합. 문자열 검색이나 잘못된 문자 삭제시 사용
+    // CharacterSet -> 구조체로 선언되어 있음
+    
+    let a = CharacterSet.uppercaseLetters // 대문자만 포함
+    let b = a.inverted // 나머지 모든 문자가 포함됨
+    
+    var str = "loRem Ipsum"
+    var charSet = CharacterSet.uppercaseLetters
+    
+    if let range = str.rangeOfCharacter(from: charSet) {
+        print(str.distance(from: str.startIndex, to:range.lowerBound ))
+    } // 2
+    
+    if let range = str.rangeOfCharacter(from: charSet, options: .backwards) {
+        print(str.distance(from: str.startIndex, to:range.lowerBound ))
+    } // 6
+    
+    str = " A p p l e "
+    charSet = .whitespaces
+    
+    let trimmed = str.trimmingCharacters(in: charSet)
+    print(trimmed) // 시작과 끝의 공백 제거
+    
+    var editTarget = CharacterSet.uppercaseLetters
+    editTarget.insert("#") // 문자 추가
+    editTarget.insert(charactersIn: "~!@") // 3개 추가
+    editTarget.remove("A")
+    editTarget.remove(charactersIn: "BCD")
+    
+    // custom
+    let customCharSet = CharacterSet(charactersIn: "@.")
+    let email = "userId@example.com"
+    
+    let components = email.components(separatedBy: customCharSet) // 문자열 분리 후 리턴
+    // userID, example, com
+}
